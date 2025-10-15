@@ -1,0 +1,6 @@
+# conf/metric/roc_auc.yaml
+
+# Указывает Hydra использовать класс RocAucMetric.
+_target_: src.metrics.roc_auc.RocAucMetric
+
+# Этот класс не имеет настраиваемых параметров.

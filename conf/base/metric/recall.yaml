@@ -1,0 +1,13 @@
+# conf/metric/recall.yaml
+
+# Указывает Hydra использовать класс RecallMetric.
+_target_: src.metrics.recall.RecallMetric
+
+# --- Параметры для RecallMetric ---
+
+# Порог для преобразования вероятностей в классы.
+threshold: 0.5
+
+# Стратегия усреднения.
+# 'binary': по умолчанию для бинарной классификации (считает Recall для класса 1).
+average: 'binary'

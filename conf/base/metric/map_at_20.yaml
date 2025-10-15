@@ -1,0 +1,9 @@
+# conf/metric/map_at_20.yaml
+
+_target_: src.metrics.ranking.MapAtKMetric
+
+# Имя для логов в W&B, если используется как дополнительная метрика
+name: "mAP@20"
+
+# Параметр 'k' для конструктора
+k: 20

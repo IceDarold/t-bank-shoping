@@ -1,0 +1,29 @@
+# conf/feature_engineering/t_shopping_v1.yaml
+# Наш первый baseline-пайплайн для T-Shopping.
+
+name: "t_shopping_v1"
+
+pipeline:
+  # --- Шаг 1: Признаки популярности товаров ---
+  - _target_: src.features.aggregation.AggregationGenerator
+    name: "item_features"
+    group_keys: ["item_id"]
+    group_values: ["user_id"]
+    agg_funcs: ["count", "nunique"] # count = item_popularity, nunique = item_reach
+
+  # --- Шаг 2: Признаки активности пользователей ---
+  - _target_: src.features.aggregation.AggregationGenerator
+    name: "user_features"
+    group_keys: ["user_id"]
+    group_values: ["item_id"]
+    agg_funcs: ["count", "nunique"] # count = user_activity, nunique = user_diversity
+
+  # --- Шаг 3: Эмбеддинги из матричной факторизации (самое важное!) ---
+  - _target_: src.features.advanced.matrix_factorization.MatrixFactorizationFeatureGenerator
+    name: "als64" # Префикс для новых колонок
+    user_col: "user_id"
+    item_col: "item_id"
+    factors: 64 # Размерность эмбеддинга
+    regularization: 0.01
+    iterations: 20
+    use_gpu: true

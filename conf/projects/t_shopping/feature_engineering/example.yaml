@@ -1,0 +1,41 @@
+# Описывает конвейер для создания набора признаков "v1"
+name: "v1"
+
+# Список шагов, которые будут выполнены последовательно
+pipeline:
+  # Шаг 1: Логарифмируем признаки с "тяжелым хвостом"
+  - _target_: src.features.numerical.LogTransformer
+    name: "log_transform"
+    cols: 
+      - "income"
+      - "transaction_amount"
+
+  # Шаг 2: Создаем признаки из даты
+  - _target_: src.features.datetime.DateComponentExtractor
+    name: "date_features"
+    col: "timestamp"
+    components: ["weekday", "hour", "is_weekend"]
+
+  # Шаг 3: Кодируем категории с низкой кардинальностью через OHE
+  - _target_: src.features.categorical.OneHotEncoder
+    name: "ohe_encoder"
+    cols:
+      - "device_type"
+      - "country"
+
+  # Шаг 4: Генерируем мощные агрегированные признаки
+  - _target_: src.features.aggregation.AggregationGenerator
+    name: "user_aggs"
+    group_key: "user_id"
+    group_values:
+      - "transaction_amount"
+      - "hour"
+    agg_funcs: ["mean", "std", "min", "max"]
+
+  # Шаг 5: Кодируем категории с высокой кардинальностью через Target Encoding
+  - _target_: src.features.categorical.TargetEncoder
+    name: "target_encoder"
+    cols:
+      - "city"
+      - "product_id"
+    target_col: "target" # Передаем имя целевой переменной

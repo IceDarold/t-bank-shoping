@@ -1,0 +1,28 @@
+name: "lgbm_xgb_catboost_v1"
+
+# Список базовых моделей, которые участвуют в ансамбле
+base_models:
+  - name: "lgbm_tuned"
+    # ❗️ Путь к OOF-предсказаниям от соответствующего `train.py` run'а
+    oof_path: "05_oof/oof_predictions_lgbm_tuned.csv" 
+    # ❗️ Путь к предсказаниям на тесте от того же run'а
+    test_preds_path: "07_submissions/submission_lgbm_tuned.csv"
+
+  - name: "xgb_tuned"
+    oof_path: "05_oof/oof_predictions_xgb_tuned.csv"
+    test_preds_path: "07_submissions/submission_xgb_tuned.csv"
+
+  - name: "catboost_tuned"
+    oof_path: "05_oof/oof_predictions_catboost_tuned.csv"
+    test_preds_path: "07_submissions/submission_catboost_tuned.csv"
+
+# Конфигурация для мета-модели (модели второго уровня)
+meta_model:
+  # Используем простую логистическую регрессию.
+  # Для нее нужно будет создать обертку в `src/models/`
+  _target_: src.models.sklearn_logit.LogisticRegressionModel 
+  params:
+    penalty: "l2"
+    C: 1.0
+    solver: "liblinear"
+    random_state: ${globals.seed}

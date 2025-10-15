@@ -1,0 +1,33 @@
+# conf/model/rf.yaml
+
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры ---
+model_class: "sklearn.ensemble.RandomForestClassifier"
+
+params:
+  # `n_estimators`: количество деревьев в лесу.
+  n_estimators: 1000
+  
+  # `criterion`: функция для измерения качества разделения ('gini' или 'entropy').
+  criterion: "gini"
+  
+  # `max_depth`: максимальная глубина каждого дерева. Ключевой параметр для контроля переобучения.
+  # `null` или `None` означает, что узлы расширяются до тех пор, пока все листья не станут чистыми.
+  max_depth: null
+  
+  # `min_samples_split`: минимальное количество объектов для разделения узла.
+  min_samples_split: 2
+  
+  # `min_samples_leaf`: минимальное количество объектов в листе.
+  min_samples_leaf: 1
+  
+  # `max_features`: количество признаков, рассматриваемых при поиске лучшего разделения.
+  # 'sqrt' - (sqrt(n_features)) - хороший выбор по умолчанию. 'log2' или число.
+  max_features: "sqrt"
+  
+  # `class_weight`: 'balanced' или 'balanced_subsample' для несбалансированных классов.
+  # class_weight: 'balanced'
+  
+  n_jobs: -1
+  random_state: ${globals.seed}

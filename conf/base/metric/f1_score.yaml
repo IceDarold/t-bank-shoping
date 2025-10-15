@@ -1,0 +1,14 @@
+# conf/metric/f1_score.yaml
+
+# Указывает Hydra использовать класс F1ScoreMetric.
+_target_: src.metrics.f1_score.F1ScoreMetric
+
+# --- Параметры для F1ScoreMetric ---
+
+# Порог для преобразования вероятностей в классы.
+threshold: 0.5
+
+# Стратегия усреднения.
+# 'binary': по умолчанию для бинарной классификации (считает F1 для класса 1).
+# 'macro', 'weighted': для многоклассовой классификации.
+average: 'binary'

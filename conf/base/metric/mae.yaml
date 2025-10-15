@@ -1,0 +1,6 @@
+# conf/metric/mae.yaml
+
+# Указывает Hydra использовать класс MaeMetric для регрессии.
+_target_: src.metrics.mae.MaeMetric
+
+# Этот класс также не имеет настраиваемых параметров.

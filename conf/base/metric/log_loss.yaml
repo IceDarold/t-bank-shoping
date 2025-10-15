@@ -1,0 +1,7 @@
+# conf/metric/log_loss.yaml
+
+# Указывает Hydra использовать класс LogLossMetric.
+_target_: src.metrics.log_loss.LogLossMetric
+
+# У этого класса нет настраиваемых параметров в __init__,
+# поэтому файл содержит только _target_.

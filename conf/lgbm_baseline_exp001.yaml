@@ -1,0 +1,36 @@
+# Experiment Name - Уникальное имя для папки с результатами
+exp_name: "lgbm_baseline_exp001"
+
+# General Settings - Общие настройки
+general:
+  seed: 42
+  debug: false # Флаг для отладки на малой части данных
+
+# Data Settings - Настройки данных
+data:
+  train_path: "data/raw/train.csv"
+  test_path: "data/raw/test.csv"
+  target_col: "target" # Название колонки с целевой переменной
+
+# Feature Engineering Settings - Настройки генерации признаков
+features:
+  # Список классов фичей, которые нужно сгенерировать.
+  # Пока оставим пустым, мы наполним его позже.
+
+# Model Settings - Настройки модели
+model:
+  name: "LGBMClassifier"
+  params:
+    objective: "binary" # Тип задачи: бинарная классификация
+    metric: "auc"       # Метрика для отслеживания
+    n_estimators: 1000  # Количество деревьев
+    learning_rate: 0.05
+    n_jobs: -1          # Использовать все доступные ядра CPU
+
+# Validation Settings - Настройки кросс-валидации
+validation:
+  name: "StratifiedKFold"
+  n_splits: 2
+
+# Output Settings - Настройки для сохранения результатов
+output_dir: "outputs/experiments"

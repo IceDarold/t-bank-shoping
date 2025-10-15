@@ -1,0 +1,9 @@
+# conf/metric/top_k_accuracy.yaml
+
+# Указывает Hydra использовать класс TopKAccuracyMetric.
+_target_: src.metrics.top_k_accuracy.TopKAccuracyMetric
+
+# --- Параметры для TopKAccuracyMetric ---
+
+# K - количество "лучших" предсказаний, в которые должен попасть правильный ответ.
+k: 5

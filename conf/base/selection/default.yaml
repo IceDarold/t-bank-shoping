@@ -1,0 +1,15 @@
+# Параметры для отбора признаков
+
+# Сколько лучших признаков выбрать
+top_n: 400
+
+# Параметры для быстрой модели LightGBM, используемой для оценки важности.
+# Не нужно делать их слишком сложными.
+model_params:
+  objective: "binary"
+  metric: "auc"
+  n_estimators: 1000
+  learning_rate: 0.05
+  n_jobs: -1
+  seed: ${globals.seed}
+  colsample_bytree: 0.7 # Добавим немного регуляризации

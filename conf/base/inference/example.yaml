@@ -1,0 +1,13 @@
+run_id: "ghjklp98" 
+
+# Если не указан, можно использовать `test_features` по умолчанию.
+input_features_filename: "test_v15_with_bow.parquet" # По умолчанию
+# input_features_filename: "final_test_v15_with_bow.parquet" # Для финального сабмишена
+
+# ID колонка для этого набора данных
+id_col: "id"
+
+# ...
+defaults:
+  - experiment: exp001_lgbm_baseline
+  - _self_

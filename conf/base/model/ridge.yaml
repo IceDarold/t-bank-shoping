@@ -1,0 +1,20 @@
+# conf/model/ridge.yaml
+
+# Используем наш универсальный SklearnModel
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры ---
+model_class: "sklearn.linear_model.Ridge"
+
+params:
+  # `alpha`: коэффициент L2 регуляризации. Чем больше alpha, тем сильнее регуляризация.
+  # Это главный гиперпараметр для тюнинга.
+  alpha: 1.0
+  
+  # `solver`: алгоритм для решения.
+  # 'auto' - выбирает автоматически. 'svd', 'cholesky', 'sag' и др.
+  solver: "auto"
+  
+  # `normalize`: Этот параметр устарел. Масштабируйте данные заранее!
+  
+  random_state: ${globals.seed}

@@ -1,0 +1,22 @@
+# Base Configuration - Common settings shared across experiments
+general:
+  seed: 42
+  debug: false  # Flag for debugging on small data subset
+
+# Data Settings - Common data paths and configurations
+data:
+  train_path: "data/raw/train.csv"
+  test_path: "data/raw/test.csv"
+  target_col: "target"  # Name of the target column
+
+# Feature Engineering Settings - Placeholder for feature classes
+features: []
+
+# Model Settings - Placeholder for model configuration
+model: {}
+
+# Validation Settings - Placeholder for validation configuration
+validation: {}
+
+# Output Settings - Common output directory
+output_dir: "outputs/experiments"

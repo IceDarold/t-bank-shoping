@@ -1,0 +1,6 @@
+# conf/metric/rmsle.yaml
+
+# Указывает Hydra использовать класс RmsleMetric для регрессии.
+_target_: src.metrics.rmsle.RmsleMetric
+
+# Этот класс не имеет настраиваемых параметров.

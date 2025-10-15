@@ -1,0 +1,21 @@
+# conf/model/extra_trees.yaml
+# Назначение: Вариация Random Forest, которая добавляет еще больше случайности. Вместо поиска оптимальной точки
+#             разделения, она выбирает случайную точку. Это делает модель еще менее склонной к переобучению и еще более 
+#             "непохожей" на бустинги.
+
+
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры ---
+model_class: "sklearn.ensemble.ExtraTreesClassifier"
+
+# Параметры очень похожи на RandomForestClassifier.
+params:
+  n_estimators: 1000
+  criterion: "gini"
+  max_depth: null
+  min_samples_leaf: 1
+  max_features: "sqrt"
+  
+  n_jobs: -1
+  random_state: ${globals.seed}

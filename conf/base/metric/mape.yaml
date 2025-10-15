@@ -1,0 +1,6 @@
+# conf/metric/mape.yaml
+
+# Указывает Hydra использовать класс MapeMetric для регрессии.
+_target_: src.metrics.mape.MapeMetric
+
+# Этот класс не имеет настраиваемых параметров.

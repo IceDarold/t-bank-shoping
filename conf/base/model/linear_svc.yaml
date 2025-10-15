@@ -1,0 +1,34 @@
+# conf/model/linear_svc.yaml
+
+# Используем наш универсальный SklearnModel
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры ---
+# LinearSVC - это быстрая реализация SVM с линейным ядром.
+# Важно: у нее нет метода .predict_proba() по умолчанию!
+# Чтобы получить вероятности, нужно либо использовать `SVC(kernel='linear', probability=True)`
+# (что медленнее), либо обернуть `LinearSVC` в `CalibratedClassifierCV`.
+# Для простоты и скорости, здесь мы будем использовать `SVC` с линейным ядром.
+model_class: "sklearn.svm.SVC"
+
+params:
+  # --- Ядро ---
+  # 'linear': ищем линейную разделяющую плоскость.
+  kernel: "linear"
+  
+  # --- Параметр регуляризации ---
+  # C: чем меньше C, тем сильнее регуляризация (шире "улица", больше ошибок на трейне).
+  C: 1.0
+  
+  # --- Вероятности ---
+  # `probability=True` необходимо, чтобы у модели появился метод .predict_proba().
+  # Это замедляет обучение, так как требует внутреннего кросс-валидационного фиттинга.
+  probability: true
+
+  # `max_iter`: максимальное количество итераций. Увеличьте, если модель не сходится.
+  max_iter: 2000
+  
+  # `class_weight`: 'balanced' для несбалансированных классов.
+  # class_weight: 'balanced'
+  
+  random_state: ${globals.seed}

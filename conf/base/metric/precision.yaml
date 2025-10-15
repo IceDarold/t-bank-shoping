@@ -1,0 +1,13 @@
+# conf/metric/precision.yaml
+
+# Указывает Hydra использовать класс PrecisionMetric.
+_target_: src.metrics.precision.PrecisionMetric
+
+# --- Параметры для PrecisionMetric ---
+
+# Порог для преобразования вероятностей в классы.
+threshold: 0.5
+
+# Стратегия усреднения.
+# 'binary': по умолчанию для бинарной классификации (считает Precision для класса 1).
+average: 'binary'

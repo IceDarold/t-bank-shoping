@@ -1,0 +1,6 @@
+# conf/metric/qwk.yaml
+
+# Указывает Hydra использовать класс QWKMetric для упорядоченной классификации.
+_target_: src.metrics.qwk.QWKMetric
+
+# Этот класс не имеет настраиваемых параметров.

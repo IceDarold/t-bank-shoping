@@ -1,0 +1,51 @@
+# Направление оптимизации: мы хотим максимизировать ROC AUC, F1 и т.д.
+direction: "maximize"
+
+# Количество итераций (проб)
+n_trials: 100
+
+# Пространство поиска. Ключ - это путь к параметру в конфиге.
+search_space:
+  model.params.learning_rate:
+    type: "float"
+    low: 0.01
+    high: 0.2
+    log: true
+
+  model.params.n_estimators:
+    type: "int"
+    low: 500
+    high: 4000
+    step: 100
+
+  model.params.max_depth:
+    type: "int"
+    low: 4
+    high: 12
+
+  model.params.num_leaves:
+    type: "int"
+    low: 10
+    high: 100
+
+  model.params.reg_alpha: # L1 regularization
+    type: "float"
+    low: 1e-4
+    high: 10.0
+    log: true
+
+  model.params.reg_lambda: # L2 regularization
+    type: "float"
+    low: 1e-4
+    high: 10.0
+    log: true
+  
+  model.params.colsample_bytree:
+    type: "float"
+    low: 0.5
+    high: 1.0
+
+  model.params.subsample:
+    type: "float"
+    low: 0.5
+    high: 1.0

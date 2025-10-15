@@ -1,0 +1,12 @@
+# conf/metric/average_precision.yaml
+
+# Указывает Hydra использовать класс AveragePrecisionMetric.
+_target_: src.metrics.average_precision.AveragePrecisionMetric
+
+# --- Параметры для AveragePrecisionMetric ---
+
+# Стратегия усреднения для многоклассовой классификации.
+# 'macro': усреднить метрики для каждого класса, не учитывая дисбаланс.
+# 'weighted': усреднить с весами, пропорциональными количеству объектов в классе.
+# Для бинарной классификации этот параметр не используется.
+average: "macro"

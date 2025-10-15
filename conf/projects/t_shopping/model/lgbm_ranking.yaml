@@ -1,0 +1,27 @@
+# conf/model/lgbm_ranking.yaml
+# Конфигурация LightGBM для задачи бинарной классификации (ранжирования).
+
+_target_: src.models.lgbm.LGBMModel
+
+params:
+  objective: "binary"
+  metric: "logloss" # Внутренняя метрика для early stopping
+  
+  boosting_type: "gbdt"
+  n_estimators: 2000 # Большое значение, т.к. будем использовать early stopping
+  learning_rate: 0.02
+  
+  num_leaves: 64
+  max_depth: 8
+  
+  reg_alpha: 0.1
+  reg_lambda: 0.1
+  
+  colsample_bytree: 0.7
+  subsample: 0.7
+  
+  n_jobs: -1
+  seed: ${globals.seed}
+  
+  # Увеличит скорость на этой задаче, т.к. user_id - категория с высокой кардинальностью
+  force_col_wise: true

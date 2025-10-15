@@ -1,0 +1,10 @@
+# conf/metric/accuracy.yaml
+
+# Указывает Hydra использовать класс AccuracyMetric из файла src/metrics/accuracy.py
+_target_: src.metrics.accuracy.AccuracyMetric
+
+# --- Параметры для AccuracyMetric ---
+
+# Порог, по которому вероятности (0.0-1.0) будут преобразованы в классы (0 или 1).
+# Значение 0.5 является стандартным.
+threshold: 0.5

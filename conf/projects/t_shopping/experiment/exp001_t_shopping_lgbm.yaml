@@ -1,0 +1,17 @@
+# conf/experiment/exp001_t_shopping_lgbm.yaml
+# Наш первый baseline-эксперимент для T-Shopping.
+
+defaults:
+  - override /wandb: t_shopping
+  - override /validation: t_shopping_cv
+  - override /metric: 
+      - main: map_at_20
+  - override /model: lgbm_ranking
+  - override /feature_engineering: t_shopping_v1
+  - override /features: t_shopping_v1
+  - override /training: default # Используем дефолтные параметры обучения (early stopping)
+  - _self_
+
+# Дополнительные теги для удобной навигации в W&B
+wandb:
+  tags: ["baseline", "lgbm", "als64"]

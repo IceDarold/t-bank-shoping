@@ -1,0 +1,6 @@
+# conf/metric/r2_score.yaml
+
+# Указывает Hydra использовать класс R2ScoreMetric для регрессии.
+_target_: src.metrics.r2_score.R2ScoreMetric
+
+# Этот класс не имеет настраиваемых параметров.

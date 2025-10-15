@@ -1,0 +1,32 @@
+# conf/model/logit.yaml
+
+# Указываем Hydra использовать наш универсальный SklearnModel
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры для конструктора SklearnModel ---
+
+# 1. Путь к классу, который мы хотим создать.
+model_class: "sklearn.linear_model.LogisticRegression"
+
+# 2. Словарь с параметрами для конструктора LogisticRegression.
+params:
+  # `penalty`: тип регуляризации ('l1', 'l2', 'elasticnet', 'none').
+  penalty: "l2"
+  
+  # `C`: обратный коэффициент силы регуляризации. Меньше C -> сильнее регуляризация.
+  C: 1.0
+  
+  # `solver`: алгоритм для использования в задаче оптимизации.
+  # 'liblinear' - хорошо работает для небольших датасетов, поддерживает L1 и L2.
+  # 'lbfgs', 'sag', 'saga', 'newton-cg' - для больших датасетов.
+  solver: "liblinear"
+  
+  # `max_iter`: максимальное количество итераций для сходимости.
+  max_iter: 1000
+  
+  # `class_weight`: 'balanced' автоматически взвешивает классы обратно
+  # пропорционально их частоте. Очень полезно для несбалансированных данных.
+  # class_weight: 'balanced'
+  
+  n_jobs: -1
+  random_state: ${globals.seed}

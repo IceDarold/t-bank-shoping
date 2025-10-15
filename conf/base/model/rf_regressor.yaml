@@ -1,0 +1,19 @@
+# conf/model/rf_regressor.yaml
+
+_target_: src.models.sklearn_model.SklearnModel
+
+# --- Параметры ---
+model_class: "sklearn.ensemble.RandomForestRegressor"
+
+params:
+  n_estimators: 1000
+  
+  # `criterion`: для регрессии это 'squared_error' (MSE) или 'absolute_error' (MAE).
+  criterion: "squared_error"
+  
+  max_depth: null
+  min_samples_leaf: 1
+  max_features: "sqrt" # Для регрессии часто используют 'auto' (все признаки)
+  
+  n_jobs: -1
+  random_state: ${globals.seed}
