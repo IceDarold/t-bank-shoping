@@ -62,9 +62,15 @@ help:
 
 # --- Настройка ---
 install:
-	@echo ">>> Установка зависимостей через Poetry..."
-	poetry install
-	@echo ">>> ГОТОВО. Не забудьте выполнить 'poetry run wandb login', если делаете это впервые."
+	@echo ">>> Установка зависимостей..."
+	@if command -v poetry >/dev/null 2>&1; then \
+		echo ">>> Используется Poetry..."; \
+		poetry install; \
+	else \
+		echo ">>> Poetry не найден. Используется pip..."; \
+		pip install -r requirements.txt; \
+	fi
+	@echo ">>> ГОТОВО. Не забудьте выполнить 'wandb login', если делаете это впервые."
 
 
 # --- Основной Workflow ---
@@ -72,22 +78,38 @@ install:
 # 1. Генерация признаков
 features:
 	@echo ">>> Генерация признаков для эксперимента: $(E)..."
-	poetry run python src/scripts/1_make_features.py experiment=$(E)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/make_features.py experiment=$(E); \
+	else \
+		python src/scripts/make_features.py experiment=$(E); \
+	fi
 
 # 2. Отбор признаков
 select:
 	@echo ">>> Отбор признаков на основе эксперимента: $(E) с конфигом отбора $(SEL)..."
-	poetry run python src/scripts/2_select_features.py experiment=$(E) selection=$(SEL)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/select_features.py experiment=$(E) selection=$(SEL); \
+	else \
+		python src/scripts/select_features.py experiment=$(E) selection=$(SEL); \
+	fi
 
 # 3. Обучение на CV
 train:
 	@echo ">>> Обучение (CV) для эксперимента: $(E)..."
-	poetry run python src/scripts/3_train.py experiment=$(E)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/train.py experiment=$(E); \
+	else \
+		python src/scripts/train.py experiment=$(E); \
+	fi
 
 # 3b. Обучение на 100% данных
 fulltrain:
 	@echo ">>> Обучение (на 100% данных) для эксперимента: $(E)..."
-	poetry run python src/scripts/3_train.py experiment=$(E) training.full_data=true
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/train.py experiment=$(E) training.full_data=true; \
+	else \
+		python src/scripts/train.py experiment=$(E) training.full_data=true; \
+	fi
 
 
 # --- Продвинутые Техники ---
@@ -95,22 +117,38 @@ fulltrain:
 # 4. Подбор гиперпараметров
 tune:
 	@echo ">>> Подбор гиперпараметров с конфигом '$(T)' для эксперимента '$(E)'..."
-	poetry run python src/scripts/4_tune.py experiment=$(E) tuning=$(T)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/tune.py experiment=$(E) tuning=$(T); \
+	else \
+		python src/scripts/tune.py experiment=$(E) tuning=$(T); \
+	fi
 
 # 5. Стекинг
 stack:
 	@echo ">>> Запуск стекинга с конфигурацией: $(S)..."
-	poetry run python src/scripts/5_stack.py stacking=$(S)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/stack.py stacking=$(S); \
+	else \
+		python src/scripts/stack.py stacking=$(S); \
+	fi
 
 # 6. Инференс
 predict:
 	@echo ">>> Инференс с конфигурацией: $(I)..."
-	poetry run python src/scripts/6_predict.py inference=$(I)
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/predict.py inference=$(I); \
+	else \
+		python src/scripts/predict.py inference=$(I); \
+	fi
 
 # 7. Псевдо-лейблинг
 pseudo:
 	@echo ">>> Запуск пайплайна псевдо-лейблинга..."
-	poetry run python src/scripts/7_pseudo_label.py
+	@if command -v poetry >/dev/null 2>&1; then \
+		poetry run python src/scripts/pseudo_label.py; \
+	else \
+		python src/scripts/pseudo_label.py; \
+	fi
 
 
 # --- Обслуживание ---
