@@ -18,7 +18,7 @@ from src.features.base import FeatureGenerator
 from src import utils
 
 
-@hydra.main(config_path="../conf", config_name="config", version_base=None)
+@hydra.main(config_path="conf", config_name="config", version_base=None)
 def make_features(cfg: DictConfig) -> None:
     """
     Главный скрипт-оркестратор для конвейера генерации признаков.

@@ -20,7 +20,7 @@ from src.validation.base import BaseSplitter # Наш новый интерфе�
 warnings.filterwarnings("ignore")
 
 
-@hydra.main(config_path="../conf", config_name="config", version_base=None)
+@hydra.main(config_path="conf", config_name="config", version_base=None)
 def train(cfg: DictConfig) -> float:
     """
     Главный пайплайн для обучения модели.

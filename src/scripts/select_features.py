@@ -14,7 +14,7 @@ import wandb
 from src import utils
 
 
-@hydra.main(config_path="../conf", config_name="config", version_base=None)
+@hydra.main(config_path="conf", config_name="config", version_base=None)
 def select_features(cfg: DictConfig) -> None:
     """
     Скрипт для отбора признаков (Feature Selection).
