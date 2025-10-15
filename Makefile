@@ -79,36 +79,36 @@ install:
 features:
 	@echo ">>> Генерация признаков для эксперимента: $(E)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/make_features.py experiment=$(E); \
+		poetry run python -m src.scripts.make_features experiment=$(E); \
 	else \
-		python src/scripts/make_features.py experiment=$(E); \
+		python -m src.scripts.make_features experiment=$(E); \
 	fi
 
 # 2. Отбор признаков
 select:
 	@echo ">>> Отбор признаков на основе эксперимента: $(E) с конфигом отбора $(SEL)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/select_features.py experiment=$(E) selection=$(SEL); \
+		poetry run python -m src.scripts.select_features experiment=$(E) selection=$(SEL); \
 	else \
-		python src/scripts/select_features.py experiment=$(E) selection=$(SEL); \
+		python -m src.scripts.select_features experiment=$(E) selection=$(SEL); \
 	fi
 
 # 3. Обучение на CV
 train:
 	@echo ">>> Обучение (CV) для эксперимента: $(E)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/train.py experiment=$(E); \
+		poetry run python -m src.scripts.train experiment=$(E); \
 	else \
-		python src/scripts/train.py experiment=$(E); \
+		python -m src.scripts.train experiment=$(E); \
 	fi
 
 # 3b. Обучение на 100% данных
 fulltrain:
 	@echo ">>> Обучение (на 100% данных) для эксперимента: $(E)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/train.py experiment=$(E) training.full_data=true; \
+		poetry run python -m src.scripts.train experiment=$(E) training.full_data=true; \
 	else \
-		python src/scripts/train.py experiment=$(E) training.full_data=true; \
+		python -m src.scripts.train experiment=$(E) training.full_data=true; \
 	fi
 
 
@@ -118,36 +118,36 @@ fulltrain:
 tune:
 	@echo ">>> Подбор гиперпараметров с конфигом '$(T)' для эксперимента '$(E)'..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/tune.py experiment=$(E) tuning=$(T); \
+		poetry run python -m src.scripts.tune experiment=$(E) tuning=$(T); \
 	else \
-		python src/scripts/tune.py experiment=$(E) tuning=$(T); \
+		python -m src.scripts.tune experiment=$(E) tuning=$(T); \
 	fi
 
 # 5. Стекинг
 stack:
 	@echo ">>> Запуск стекинга с конфигурацией: $(S)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/stack.py stacking=$(S); \
+		poetry run python -m src.scripts.stack stacking=$(S); \
 	else \
-		python src/scripts/stack.py stacking=$(S); \
+		python -m src.scripts.stack stacking=$(S); \
 	fi
 
 # 6. Инференс
 predict:
 	@echo ">>> Инференс с конфигурацией: $(I)..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/predict.py inference=$(I); \
+		poetry run python -m src.scripts.predict inference=$(I); \
 	else \
-		python src/scripts/predict.py inference=$(I); \
+		python -m src.scripts.predict inference=$(I); \
 	fi
 
 # 7. Псевдо-лейблинг
 pseudo:
 	@echo ">>> Запуск пайплайна псевдо-лейблинга..."
 	@if command -v poetry >/dev/null 2>&1; then \
-		poetry run python src/scripts/pseudo_label.py; \
+		poetry run python -m src.scripts.pseudo_label; \
 	else \
-		python src/scripts/pseudo_label.py; \
+		python -m src.scripts.pseudo_label; \
 	fi
 
 
